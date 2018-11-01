@@ -4,20 +4,32 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import test.Pregunta;
+import test.Tema;
 
 public class Utilidades {
-	public static void LeerArchivoCSV(String path){
+	public static List<Object> LeerArchivoCSV(String path){
 		String csvFile = path;
 		BufferedReader br = null;
 		String line = "";
-		//Se define separador ","
-		String cvsSplitBy = ",";
+		//Se define separador ";"
+		String cvsSplitBy = ";";
+		List<Object> datosSend=new ArrayList<>();
+		List<String> aux;
 		try {
 		    br = new BufferedReader(new FileReader(csvFile));
-		    while ((line = br.readLine()) != null) {                
+		    int i=0,j=0;
+		    while ((line = br.readLine()) != null) {
 		        String[] datos = line.split(cvsSplitBy);
-		        //Imprime datos.
-		       System.out.println(datos[0] + ", " + datos[1] + ", " + datos[2] + ", " + datos[3]);
+		        aux = new ArrayList<>();
+		        for(String s:datos){
+		        	aux.add(s);
+		        }
+		        datosSend.add(aux);
 		    }
 		} catch (FileNotFoundException e) {
 		    e.printStackTrace();
@@ -32,5 +44,6 @@ public class Utilidades {
 		        }
 		    }
 		}
+	    return datosSend;
 	}
 }
